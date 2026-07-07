@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login - Gerenciador de Bikes</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#e8ece9;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+.login{
+    width:350px;
+    background:#fff;
+    padding:30px;
+    border-radius:10px;
+    box-shadow:0 0 15px rgba(0,0,0,.15);
+}
+
+.login h1{
+    text-align:center;
+    margin-bottom:25px;
+    color:#2f6b3a;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    margin-bottom:15px;
+    border:1px solid #ccc;
+    border-radius:5px;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    border:none;
+    background:#2f6b3a;
+    color:#fff;
+    font-size:16px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#24542d;
+}
+
+p{
+    text-align:center;
+    margin-top:15px;
+    color:#666;
+}
+
+.senha-box{
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.senha-box input{
+    flex:1;
+    margin-bottom:0;
+}
+
+.senha-box button{
+    width:45px;
+    height:45px;
+    padding:0;
+    margin-bottom:15px;
+    background:#2f6b3a;
+    color:#fff;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+    font-size:18px;
+}
+
+.senha-box button:hover{
+    background:#24542d;
+}
+
+#erro{
+    margin-top:15px;
+    text-align:center;
+    font-weight:bold;
+    color:red;
+}
+</style>
+
+</head>
+<body>
+
+<div class="login">
+
+<h1>🚲 Gerenciador de Bikes</h1>
+
+<input type="text" id="usuario" placeholder="Usuário">
+
+<div class="senha-box">
+    <input type="password" id="senha" placeholder="Senha">
+    <button type="button" onclick="mostrarSenha()" id="olho">👁️</button>
+</div>
+
+<button onclick="login()">Entrar</button>
+<button id="desbloquear" onclick="desbloquear()" style="display:none; margin-top:10px;">
+    🔓 Desbloquear Sistema
+</button>
+<p id="erro"></p>
+<p id="contador" style="text-align:center; color:orange; font-weight:bold;"></p>
+
+
+
+</div>
+
+<script>
+
+let tentativas = 3;
+let segundaChance = false;
+
+function login(){
+
+    const usuario = document.getElementById("usuario");
+    const senha = document.getElementById("senha");
+    const erro = document.getElementById("erro");
+
+    if(
+        usuario.value.trim() === "admin" &&
+        senha.value.trim() === "1357"
+    ){
+
+        erro.style.color = "green";
+        erro.textContent = "Seja bem-vindo!";
+
+        localStorage.setItem("logado","true");
+
+        setTimeout(function(){
+
+            window.location.href = "index.html";
+
+        },1000);
+
+    }else{
+
+        tentativas--;
+
+        erro.style.color = "red";
+        erro.textContent =
+        "Usuário ou senha incorretos! Tentativas restantes: " + tentativas;
+
+        usuario.value = "";
+        senha.value = "";
+        usuario.focus();
+
+        if(tentativas <= 0){
+
+            if(!segundaChance){
+
+                iniciarContador();
+
+            }else{
+
+                erro.style.color = "red";
+                erro.textContent =
+                "Login bloqueado! Utilize a chave mestre.";
+
+                usuario.disabled = true;
+                senha.disabled = true;
+
+                document.getElementById("desbloquear").style.display = "block";
+
+            }
+
+        }
+
+    }
+
+}
+
+function iniciarContador(){
+
+    const usuario = document.getElementById("usuario");
+    const senha = document.getElementById("senha");
+    const erro = document.getElementById("erro");
+    const contador = document.getElementById("contador");
+
+    usuario.disabled = true;
+    senha.disabled = true;
+
+    let tempo = 30;
+
+    erro.style.color = "orange";
+    erro.textContent = "Muitas tentativas!";
+
+    contador.textContent = "Tente novamente em " + tempo + " segundos.";
+
+    const intervalo = setInterval(function(){
+
+        tempo--;
+
+        contador.textContent =
+        "Tente novamente em " + tempo + " segundos.";
+
+        if(tempo <= 0){
+
+            clearInterval(intervalo);
+
+            contador.textContent = "";
+
+            usuario.disabled = false;
+            senha.disabled = false;
+
+            usuario.value = "";
+            senha.value = "";
+
+            tentativas = 2;
+            segundaChance = true;
+
+            erro.style.color = "green";
+            erro.textContent =
+            "Você recebeu mais 2 tentativas.";
+
+            usuario.focus();
+
+        }
+
+    },1000);
+
+}
+
+function mostrarSenha(){
+
+    const senha = document.getElementById("senha");
+    const olho = document.getElementById("olho");
+
+    if(senha.type === "password"){
+
+        senha.type = "text";
+        olho.innerHTML = "🙈";
+
+    }else{
+
+        senha.type = "password";
+        olho.innerHTML = "👁️";
+
+    }
+
+}
+
+document.addEventListener("keydown", function(event){
+
+    if(event.key === "Enter"){
+
+        login();
+
+    }
+
+});
+
+function desbloquear(){
+
+    const codigo = prompt("Digite a chave mestre:");
+
+    if(codigo === "admin2026"){
+
+        tentativas = 3;
+        segundaChance = false;
+
+        const usuario = document.getElementById("usuario");
+        const senha = document.getElementById("senha");
+
+        usuario.disabled = false;
+        senha.disabled = false;
+
+        usuario.value = "";
+        senha.value = "";
+
+        document.getElementById("erro").style.color = "green";
+        document.getElementById("erro").textContent =
+        "Sistema desbloqueado!";
+
+        document.getElementById("contador").textContent = "";
+
+        document.getElementById("desbloquear").style.display = "none";
+
+        usuario.focus();
+
+    }else{
+
+        alert("Chave mestre inválida!");
+
+    }
+
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciador de bicicletas</title>
+    <header>
+    <h1>🚲 Gerenciador de Bikes</h1>
+    <p>Cadastre, edite e acompanhe sua frota de bicicletas. Os dados ficam salvos no localStorage do navegador.</p>
+  </header>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <script>
+
+        if(localStorage.getItem("logado")!="true"){
+
+            window.location.href="login.html";
+
+        }
+
+    </script>
+    
+  
+  <div class="grid">
+
+    <div class="panel">
+      <h2 id="form-title">Nova bike</h2>
+      <form id="bike-form">
+        <label for="modelo">Modelo</label>
+        <input id="modelo" required placeholder="Ex: Caloi Elite 30">
+        <br>
+        <br>
+
+        <label for="marca">Marca</label>
+        <input id="marca" required placeholder="Ex: Caloi">
+        <br>
+        <br>
+
+        <label for="tipo">Tipo</label>
+        <select id="tipo">
+          <option>Mountain Bike</option>
+          <option>Speed</option>
+          <option>Urbana</option>
+          <option>BMX</option>
+          <option>Elétrica</option>
+        </select>
+        <br>
+        <br>
+
+        <label for="ano">Ano</label>
+        <input id="ano" type="number" min="1980" max="2100" placeholder="Ex: 2023" required>
+        <br>
+        <br>
+
+        <label for="preco">Preço (R$)</label>
+        <input id="preco" type="text" placeholder="Ex: 2.500,00" required>
+        <br>
+        <br>
+
+        <label for="status">Status</label>
+        <select id="status">
+          <option value="disponivel">Disponível</option>
+          <option value="em-uso">Em uso</option>
+          <option value="manutencao">Manutenção</option>
+        </select>
+        <br>
+        <br>
+
+        <button type="submit" class="btn-primary" id="submit-btn">Adicionar bike</button>
+        <button type="button" class="btn-secondary" id="cancel-edit" style="display:none;">Cancelar edição</button>
+      </form>
+    </div>
+
+    <div>
+      <div class="stats">
+        <div class="stat">
+          <div class="num" id="stat-total">0</div>
+          <div class="lbl">Total de bikes</div>
+        </div>
+        
+
+        <div class="stat">
+          <div class="num" id="stat-disponiveis">0</div>
+          <div class="lbl">Disponíveis</div>
+        </div>
+        
+        <div class="stat">
+          <div class="num" id="stat-valor">R$ 0</div>
+          <div class="lbl">Valor total</div>
+        </div>
+      </div>
+
+      <div class="toolbar">
+        <input id="busca" placeholder="Buscar por modelo ou marca...">
+        <select id="filtro-status">
+          <option value="">Todos os status</option>
+          <option value="disponivel">Disponível</option>
+          <option value="em-uso">Em uso</option>
+          <option value="manutencao">Manutenção</option>
+        </select>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Modelo</th>
+            <th>Marca</th>
+            <th>Tipo</th>
+            <th>Ano</th>
+            <th>Preço</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="tabela-corpo"></tbody>
+      </table>
+      <div class="empty" id="empty-msg" style="display:none;">Nenhuma bike cadastrada ainda. Use o formulário ao lado para começar.</div>
+    </div>
+
+  </div>
+  <button onclick="logout()">Sair</button>
+  <footer>projeto afins de utilizaçoes educacionais, para estudos sobre javasScript, e localStorage, e HTML, CSS5</footer>
+</div>
+
+
+    <script src="storage.js"></script>
+    <script src="utils.js"></script>
+    <script src="read.js"></script>
+    <script src="uptade.js"></script>
+    <script src="delete.js"></script>
+    <script src="create.js"></script>
+    <script src="events.js"></script>
+    <script src="script.js"></script>
+    </body>
+</html>

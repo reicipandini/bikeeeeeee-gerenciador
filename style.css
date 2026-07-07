@@ -1,0 +1,206 @@
+:root {
+    --bg: #f5f6f4;
+    --panel: #ffffff;
+    --border: #dfe3de;
+    --text: #050706;
+    --muted: #6b7568;
+    --accent: #2f6b3a;
+    --accent-dark: #234f2b;
+    --danger: #b3432b;
+    --warn: #b9832b;
+    --ok: #2f6b3a;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    padding: 24px;
+  }
+
+  .wrap {
+    max-width: 980px;
+    margin: 0 auto;
+  }
+
+  header {
+    margin-bottom: 24px;
+  }
+
+  header h1 {
+    margin: 0 0 4px 0;
+    font-size: 26px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  header p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 20px;
+  }
+
+  @media (max-width: 760px) {
+    .grid { grid-template-columns: 1fr; }
+  }
+
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px;
+  }
+
+  .panel h2 {
+    margin: 0 0 14px 0;
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    color: var(--muted);
+  }
+
+  label {
+    display: block;
+    font-size: 13px;
+    margin: 10px 0 4px;
+    color: var(--muted);
+  }
+
+  input, select {
+    width: 100%;
+    padding: 9px 10px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 14px;
+    background: #fff;
+    color: var(--text);
+  }
+
+  input:focus, select:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+  }
+
+  button {
+    cursor: pointer;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .btn-primary {
+    width: 100%;
+    margin-top: 16px;
+    padding: 10px;
+    background: var(--accent);
+    color: #fff;
+  }
+  .btn-primary:hover { background: var(--accent-dark); }
+
+  .btn-secondary {
+    width: 100%;
+    margin-top: 8px;
+    padding: 9px;
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--border);
+  }
+  .btn-secondary:hover { background: #f0f1ef; }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .stat {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+  }
+  .stat .num { font-size: 22px; font-weight: 700; }
+  .stat .lbl { font-size: 12px; color: var(--muted); }
+
+  .toolbar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .toolbar input, .toolbar select {
+    background: var(--panel);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  th, td {
+    text-align: left;
+    padding: 10px 12px;
+    font-size: 13.5px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  th {
+    background: #f0f2ee;
+    color: var(--muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: .03em;
+  }
+
+  tr:last-child td { border-bottom: none; }
+
+  .badge {
+    display: inline-block;
+    padding: 3px 9px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #e7e1e1;
+  }
+  .badge.disponivel { background: var(--ok); }
+  .badge.em-uso { background: var(--warn); }
+  .badge.manutencao { background: var(--danger); }
+
+  .row-actions { display: flex; gap: 8px; }
+  .row-actions button {
+    padding: 6px 10px;
+    font-size: 12px;
+    background: #eef0ec;
+    color: var(--text);
+  }
+  .row-actions button:hover { background: #e2e5de; }
+  .row-actions .del:hover { background: var(--danger); color: #fff; }
+
+  .empty {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--muted);
+  }
+
+  footer {
+    margin-top: 20px;
+    font-size: 12px;
+    color: var(--muted);
+    text-align: center;
+  }
